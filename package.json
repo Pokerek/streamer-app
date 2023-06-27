@@ -1,0 +1,12 @@
+{
+  "name": "streamer-app",
+  "version": "1.0.0",
+  "description": "Website with streamer list for voting",
+  "keywords": [
+    "streamer",
+    "api",
+    "fullstack"
+  ],
+  "author": "Karol Chrobok",
+  "license": "MIT"
+}
