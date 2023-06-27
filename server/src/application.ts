@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import ErrorMiddleware from './middlewares/error-middleware';
+import MongooseService from './services/mongoose-service';
 
 
 export default class Application {
@@ -14,7 +15,7 @@ export default class Application {
     constructor() {
         this.app = express();
 
-
+        MongooseService.connect();
         this.initializeMiddlewares();
         this.initializeRoutes();
         this.app.use(ErrorMiddleware.errorHandler);
