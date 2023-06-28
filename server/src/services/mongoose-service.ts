@@ -11,4 +11,8 @@ export default class MongooseService {
 
         console.log("Connected to MongoDB");
     }
+
+    static checkIfIdCorrect = (id: string): boolean => {
+        return mongoose.Types.ObjectId.isValid(id);
+    }
 }

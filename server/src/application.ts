@@ -6,6 +6,7 @@ dotenv.config();
 
 import ErrorMiddleware from './middlewares/error-middleware';
 import MongooseService from './services/mongoose-service';
+import StreamersRouter from './routes/streamers-router';
 
 
 export default class Application {
@@ -28,7 +29,8 @@ export default class Application {
     }
 
     private initializeRoutes = () => {
-        this.app.use('/', (req, res) => res.send('Hello World!'))
+        const streamersRoute = new StreamersRouter();
+        this.app.use('/', streamersRoute.router)
     }
 
     start = () => {
