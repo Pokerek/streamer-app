@@ -8,9 +8,25 @@ const createStreamer = async (formData: any) => {
 
     const body = { name, description, platform } as StreamerInput;
 
-    await StreamersService.createStreamer(body);
+    try {
+        await StreamersService.createStreamer(body);
+        return null;
+    } catch (error) {
+        return error;
+    }
+}
 
-    return null;
+const voteStreamer = async (formData: any) => {
+    const id = formData.get("id") as string;
+    const vote = formData.get("vote") as string;
+
+    try {
+        await StreamersService.voteStreamer(id, vote);
+
+        return null;
+    } catch (error) {
+        return error;
+    }
 }
 
 
@@ -22,7 +38,7 @@ const streamersListAction = async ({ request }: any) => {
             return createStreamer(formData);
 
         case "PUT":
-            return null;
+            return voteStreamer(formData);
 
         default:
             return null;

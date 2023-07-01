@@ -50,4 +50,18 @@ export default class StreamersService {
         const createdStreamer = await response.json() as Streamer;
         return createdStreamer;
     }
+
+    public static async voteStreamer(streamerId: string, vote: string): Promise<void> {
+        const response = await fetch(`${BACKEND_URL}/streamers/${streamerId}/vote`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ isVoteUp: vote === "up" }),
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to vote streamer");
+        }
+    }
 }
