@@ -11,8 +11,9 @@ import ErrorPage from './pages/error-page';
 import SteamersListPage from './pages/streamers-list-page';
 import SteamerDetailPage from './pages/streamer-detail-page';
 
-import StreamersListPageLoader from './loaders/streamers-list-page-loader';
-import StreamerDetailPageLoader from './loaders/streamer-detail-page-loader';
+import streamersListPageLoader from './loaders/streamers-list-page-loader';
+import streamerDetailPageLoader from './loaders/streamer-detail-page-loader';
+import streamersListPageAction from './actions/streamers-list-page-action';
 
 import ROUTES from './routes';
 
@@ -28,12 +29,13 @@ const router = createBrowserRouter(
       <Route
         path={ROUTES.STREAMERS_LIST.PATH}
         element={<SteamersListPage />}
-        loader={StreamersListPageLoader}
+        loader={streamersListPageLoader}
+        action={streamersListPageAction}
       />
       <Route
         path={ROUTES.STREAMER_DETAIL.PATH}
         element={<SteamerDetailPage />}
-        loader={StreamerDetailPageLoader}
+        loader={streamerDetailPageLoader}
       />
     </Route>
   )

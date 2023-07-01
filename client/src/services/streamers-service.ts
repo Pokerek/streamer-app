@@ -1,5 +1,5 @@
 import { BACKEND_URL } from "../constants";
-import { Streamer } from "../types";
+import { Streamer, StreamerInput } from "../types";
 
 export default class StreamersService {
     public static async getStreamers(): Promise<Streamer[]> {
@@ -32,5 +32,22 @@ export default class StreamersService {
 
         const streamer = await response.json() as Streamer;
         return streamer;
+    }
+
+    public static async createStreamer(streamer: StreamerInput): Promise<Streamer> {
+        const response = await fetch(`${BACKEND_URL}/streamers`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(streamer),
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to create streamer");
+        }
+
+        const createdStreamer = await response.json() as Streamer;
+        return createdStreamer;
     }
 }

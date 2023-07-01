@@ -1,7 +1,7 @@
 import StreamersService from "../services/streamers-service"
 
-const StreamersListPageLoader = async () => {
+const streamersListPageLoader = async () => {
     return await StreamersService.getStreamers();
 };
 
-export default StreamersListPageLoader;
+export default streamersListPageLoader;

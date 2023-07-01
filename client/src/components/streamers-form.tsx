@@ -4,7 +4,10 @@ import './streamers-form.scss';
 
 const StreamersForm = () => {
   return (
-    <Form className="streamers-form">
+    <Form
+      method="POST"
+      className="streamers-form"
+    >
       <div className="streamers-form__field">
         <label
           htmlFor="name"
@@ -15,6 +18,7 @@ const StreamersForm = () => {
         <input
           type="text"
           id="name"
+          name="name"
           className="streamers-form__input"
         />
       </div>
@@ -27,13 +31,14 @@ const StreamersForm = () => {
         </label>
         <select
           id="platform"
+          name="platform"
           className="streamers-form__select"
         >
-          <option value="twitch">Twitch</option>
-          <option value="youtube">YouTube</option>
-          <option value="tiktok">TikTok</option>
-          <option value="kick">Kick</option>
-          <option value="rumble">Rumble</option>
+          <option value="Twitch">Twitch</option>
+          <option value="Youtube">YouTube</option>
+          <option value="TikTok">TikTok</option>
+          <option value="Kick">Kick</option>
+          <option value="Rumble">Rumble</option>
         </select>
       </div>
       <div className="streamers-form__field">
@@ -45,6 +50,7 @@ const StreamersForm = () => {
         </label>
         <textarea
           id="description"
+          name="description"
           className="streamers-form__input"
         />
       </div>
