@@ -11,19 +11,28 @@ import ErrorPage from './pages/error-page';
 import SteamersListPage from './pages/streamers-list-page';
 import SteamerDetailPage from './pages/streamer-detail-page';
 
+import StreamersListPageLoader from './loaders/streamers-list-page-loader';
+
 import ROUTES from './routes';
 
-import './index.scss';
+import './styles/index.scss';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      <Route path={ROUTES.STREAMERS_LIST.PATH} element={<SteamersListPage />} />
+    <Route
+      path="/"
+      element={<App />}
+      errorElement={<ErrorPage />}
+    >
+      <Route
+        path={ROUTES.STREAMERS_LIST.PATH}
+        element={<SteamersListPage />}
+        loader={StreamersListPageLoader}
+      />
       <Route
         path={ROUTES.STREAMER_DETAIL.PATH}
         element={<SteamerDetailPage />}
       />
-      <Route path="*" element={<ErrorPage />} />
     </Route>
   )
 );

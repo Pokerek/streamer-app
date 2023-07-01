@@ -1,0 +1,13 @@
+@import './variables';
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media screen and (min-width: $screen-tablet) {
+  .title {
+    font-size: 2rem;
+  }
+}

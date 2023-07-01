@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import Container from './components/container';
 
 function App() {
   const location = useLocation();
@@ -13,7 +14,9 @@ function App() {
 
   return (
     <main>
-      <Outlet />
+      <Container>
+        <Outlet />
+      </Container>
     </main>
   );
 }

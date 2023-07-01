@@ -1,0 +1,26 @@
+@import './typography';
+
+:root {
+  --color-background: #222831;
+  --color-text: #eeeeee;
+  --color-primary: #7bc74d;
+  --color-secondary: #393e46;
+  --color-red: #fb0568;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: 'Roboto', sans-serif;
+}
