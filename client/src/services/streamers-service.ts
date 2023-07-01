@@ -17,4 +17,20 @@ export default class StreamersService {
         const streamers = await response.json() as Streamer[];
         return streamers;
     }
+
+    public static async getStreamer(streamerId: string): Promise<Streamer> {
+        const response = await fetch(`${BACKEND_URL}/streamer/${streamerId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch streamer");
+        }
+
+        const streamer = await response.json() as Streamer;
+        return streamer;
+    }
 }

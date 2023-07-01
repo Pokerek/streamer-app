@@ -12,6 +12,7 @@ import SteamersListPage from './pages/streamers-list-page';
 import SteamerDetailPage from './pages/streamer-detail-page';
 
 import StreamersListPageLoader from './loaders/streamers-list-page-loader';
+import StreamerDetailPageLoader from './loaders/streamer-detail-page-loader';
 
 import ROUTES from './routes';
 
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
       <Route
         path={ROUTES.STREAMER_DETAIL.PATH}
         element={<SteamerDetailPage />}
+        loader={StreamerDetailPageLoader}
       />
     </Route>
   )
