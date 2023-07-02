@@ -1,5 +1,3 @@
-Certainly! Here's an updated version of the README file that includes the information about the API endpoints and their request bodies:
-
 # Streamer Spotlight Application
 
 This is a simple streamer spotlight application where users can add their favorite streamers and up vote or down vote them. The application consists of a frontend built with React.js and a backend built with Node.js and Express.js. The data is stored in a MongoDB database using Mongoose as the ORM.
