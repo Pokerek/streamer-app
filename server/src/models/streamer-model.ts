@@ -1,12 +1,17 @@
 import mongoose from "mongoose";
 
+import { Platform } from "../types";
+
 const Schema = mongoose.Schema;
+
+export const NAME_MAX_LENGTH = 32;
+export const DESCRIPTION_MAX_LENGTH = 256;
 
 export interface StreamerDocument extends mongoose.Document {
     id: mongoose.Types.ObjectId;
     name: string;
     description: string;
-    platform: string;
+    platform: Platform;
     imageUri: string;
     voteCount: number;
 }
@@ -14,14 +19,18 @@ export interface StreamerDocument extends mongoose.Document {
 const StreamerSchema = new Schema({
     name: {
         type: String,
+        unique: true,
+        maxLength: NAME_MAX_LENGTH,
         required: true
     },
     description: {
         type: String,
+        maxLength: DESCRIPTION_MAX_LENGTH,
         required: true
     },
     platform: {
         type: String,
+        enum: Object.values(Platform),
         required: true
     },
     imageUri: {

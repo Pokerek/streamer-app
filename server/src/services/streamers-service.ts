@@ -1,8 +1,9 @@
 import StreamerNotFound from "../errors/streamer-not-found-error";
-import StreamerModel, { StreamerDocument } from "../models/streamer-model";
+import StreamerAlreadyExistError from "../errors/streamer-already-exist-error";
+import StreamerModel from "../models/streamer-model";
 import MongooseService from "./mongoose-service";
 
-export type Streamer = Pick<StreamerDocument, "id" | "name" | "description" | "platform" | "imageUri" | "voteCount">;
+import { Streamer } from "../types";
 
 export default class StreamersService {
     getStreamer = async (id: string) => {
@@ -24,13 +25,16 @@ export default class StreamersService {
                 platform: streamer.platform,
                 imageUri: streamer.imageUri,
                 voteCount: streamer.voteCount
-            };
+            } as Streamer;
         });
     }
 
     createStreamer = async (streamer: Streamer): Promise<Streamer> => {
-        await StreamerModel.create(streamer);
+        if (await StreamerModel.exists({ name: streamer.name })) {
+            throw new StreamerAlreadyExistError();
+        }
 
+        await StreamerModel.create(streamer);
         return streamer;
     }
 

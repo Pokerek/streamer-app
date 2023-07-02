@@ -1,13 +1,23 @@
-import { useState, ChangeEvent } from 'react';
-import { Form } from 'react-router-dom';
+import { useState, useEffect, ChangeEvent } from 'react';
+import { Form, useActionData } from 'react-router-dom';
 
 import { Platform } from '../types';
 import './streamers-form.scss';
+import { DESCRIPTION_MAX_LENGTH, NAME_MAX_LENGTH } from '../constants';
 
 const StreamersForm = () => {
   const [name, setName] = useState<string>('');
   const [platform, setPlatform] = useState<Platform>(Platform.Twitch);
   const [description, setDescription] = useState<string>('');
+  const error = useActionData();
+
+  useEffect(() => {
+    if (error === null) {
+      setName('');
+      setPlatform(Platform.Twitch);
+      setDescription('');
+    }
+  }, [error]);
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -40,6 +50,10 @@ const StreamersForm = () => {
           className="streamers-form__input"
           value={name}
           onChange={handleNameChange}
+          pattern="[A-Za-z0-9 ]+"
+          title="Only letters, numbers and spaces are allowed."
+          maxLength={NAME_MAX_LENGTH}
+          required
         />
       </div>
       <div className="streamers-form__field">
@@ -55,6 +69,8 @@ const StreamersForm = () => {
           className="streamers-form__select"
           value={platform}
           onChange={handlePlatformChange}
+          title="Select a platform."
+          required
         >
           <option value="Twitch">Twitch</option>
           <option value="Youtube">YouTube</option>
@@ -76,13 +92,16 @@ const StreamersForm = () => {
           className="streamers-form__input"
           value={description}
           onChange={handleDescriptionChange}
+          maxLength={DESCRIPTION_MAX_LENGTH}
+          title="Add a description of the streamer."
+          required
         />
       </div>
       <button
         type="submit"
         className="streamers-form__submit"
       >
-        Add
+        Add Streamer
       </button>
     </Form>
   );

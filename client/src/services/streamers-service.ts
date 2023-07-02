@@ -11,7 +11,7 @@ export default class StreamersService {
         });
 
         if (!response.ok) {
-            throw new Error("Failed to fetch streamers");
+            throw new Error("Failed to get streamers");
         }
 
         const streamers = await response.json() as Streamer[];
@@ -27,7 +27,7 @@ export default class StreamersService {
         });
 
         if (!response.ok) {
-            throw new Error("Failed to fetch streamer");
+            throw new Error("Failed to get streamer");
         }
 
         const streamer = await response.json() as Streamer;
@@ -44,7 +44,8 @@ export default class StreamersService {
         });
 
         if (!response.ok) {
-            throw new Error("Failed to create streamer");
+            const message = await response.text();
+            throw new Error(message);
         }
 
         const createdStreamer = await response.json() as Streamer;
@@ -61,7 +62,8 @@ export default class StreamersService {
         });
 
         if (!response.ok) {
-            throw new Error("Failed to vote streamer");
+            const message = await response.text();
+            throw new Error(message);
         }
     }
 }

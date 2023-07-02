@@ -9,4 +9,9 @@
     flex-direction: column;
     gap: 0.5rem;
   }
+
+  & &__text {
+    font-size: 1.25rem;
+    text-align: center;
+  }
 }
