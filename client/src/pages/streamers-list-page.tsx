@@ -1,21 +1,50 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLoaderData, useActionData } from 'react-router-dom';
+import io from 'socket.io-client';
 
 import { Streamer } from '../types';
+import { BACKEND_URL } from '../constants';
 import StreamersList from '../components/streamers-list';
 import StreamersForm from '../components/streamers-form';
+import Message from '../components/message';
 
 import './streamers-list-page.scss';
-import Message from '../components/message';
-import { useEffect } from 'react';
+
+const socket = io(BACKEND_URL);
 
 const SteamersListPage = () => {
-  const streamers = useLoaderData() as Streamer[];
-  const error = useActionData() as Error;
+  const streamersLoader = useLoaderData() as Streamer[];
+  const [streamers, setStreamers] = useState<Streamer[]>(streamersLoader);
+  const error = useActionData();
   const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
-    if (error) {
+    socket.on('streamer-created', (streamer: Streamer) => {
+      setStreamers((prevStreamers) => [...prevStreamers, streamer]);
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on('streamer-voted', ({ id, isVoteUp }) => {
+      const updatedStreamers = streamers.map((streamer) => {
+        if (streamer.id === id) {
+          return {
+            ...streamer,
+            voteCount: isVoteUp
+              ? streamer.voteCount + 1
+              : streamer.voteCount - 1
+          };
+        }
+        return streamer;
+      });
+
+      setStreamers(updatedStreamers);
+    });
+  }, [streamers]);
+
+  useEffect(() => {
+    console.log('error', error);
+    if (error instanceof Error) {
       setMessage(error.message);
     } else {
       setMessage('');

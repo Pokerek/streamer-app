@@ -9,15 +9,15 @@ const StreamersForm = () => {
   const [name, setName] = useState<string>('');
   const [platform, setPlatform] = useState<Platform>(Platform.Twitch);
   const [description, setDescription] = useState<string>('');
-  const error = useActionData();
+  const data = useActionData();
 
   useEffect(() => {
-    if (error === null) {
+    if (data instanceof Object) {
       setName('');
       setPlatform(Platform.Twitch);
       setDescription('');
     }
-  }, [error]);
+  }, [data]);
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);

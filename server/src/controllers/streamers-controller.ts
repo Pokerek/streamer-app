@@ -4,6 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 import StreamersService from '../services/streamers-service';
 import StreamerNotFound from '../errors/streamer-not-found-error';
 import StreamerValidation from '../validations/streamer-validation';
+import SocketService from '../services/socket-service';
 
 export default class StreamersController {
     private streamersService: StreamersService;
@@ -41,6 +42,8 @@ export default class StreamersController {
             const validateBodyRequest = StreamerValidation.createStreamer(req.body);
             const streamer = await this.streamersService.createStreamer(validateBodyRequest);
 
+            SocketService.emit('streamer-created', streamer);
+
             res.status(StatusCodes.CREATED).json(streamer);
         } catch (error) {
             next(error);
@@ -53,6 +56,8 @@ export default class StreamersController {
         try {
             const isVoteUp = StreamerValidation.voteStreamer(req.body);
             await this.streamersService.voteStreamer(id, isVoteUp);
+
+            SocketService.emit('streamer-voted', { id, isVoteUp });
 
             res.status(StatusCodes.ACCEPTED).send();
         } catch (error) {

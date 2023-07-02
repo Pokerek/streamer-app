@@ -34,8 +34,15 @@ export default class StreamersService {
             throw new StreamerAlreadyExistError();
         }
 
-        await StreamerModel.create(streamer);
-        return streamer;
+        const newStreamer = await StreamerModel.create(streamer);
+        return {
+            id: newStreamer.id,
+            name: newStreamer.name,
+            description: newStreamer.description,
+            platform: newStreamer.platform,
+            imageUri: newStreamer.imageUri,
+            voteCount: newStreamer.voteCount
+        };
     }
 
     voteStreamer = async (id: string, isVoteUp: boolean): Promise<void> => {

@@ -10,7 +10,7 @@ const createStreamer = async (formData: any) => {
 
     try {
         await StreamersService.createStreamer(body);
-        return null;
+        return { name, description, platform };
     } catch (error) {
         return error;
     }
@@ -22,7 +22,6 @@ const voteStreamer = async (formData: any) => {
 
     try {
         await StreamersService.voteStreamer(id, vote);
-
         return null;
     } catch (error) {
         return error;
